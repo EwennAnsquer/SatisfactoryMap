@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  SatisfactoryMapFrontEnd:
+    image: satisfactory-map-frontend
+    stdin_open: true
+    ports:
+      - "5173:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - "./SatisfactoryMapFrontEnd:/app:delegated"
+      - /app/node_modules

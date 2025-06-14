@@ -1,0 +1,17 @@
+FROM node:alpine
+
+# Create app directory
+WORKDIR /app
+
+# Install dependencies (will be overwritten by bind mount, but needed for docker build to succeed)
+COPY package*.json .
+RUN npm install
+
+# Copy the rest of the app (not strictly needed for dev since it's mounted)
+COPY . .
+
+# Expose the default Vite dev server port
+EXPOSE 5173
+
+# Start the dev server
+CMD ["npm", "run", "dev-exposed"]
