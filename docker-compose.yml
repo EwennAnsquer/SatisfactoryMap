@@ -10,3 +10,9 @@ services:
     volumes:
       - "./SatisfactoryMapFrontEnd:/app:delegated"
       - /app/node_modules
+  SatisfactoryMapBackEnd:
+    image: satisfactory-map-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./SatisfactoryMapBackEnd:/app"
