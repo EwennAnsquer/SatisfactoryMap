@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   SatisfactoryMapFrontEnd:
     image: satisfactory-map-frontend
@@ -16,3 +15,26 @@ services:
       - "8080:8080"
     volumes:
       - "./SatisfactoryMapBackEnd:/app"
+  SatisfactoryMapDB:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+    volumes:
+      - mydb-data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin:latest
+    environment:
+      - PMA_HOST=SatisfactoryMapDB
+    ports:
+      - "80:80"
+    depends_on:
+      - SatisfactoryMapDB
+    volumes:
+      - ./themes/boodark:/var/www/html/themes/boodark
+
+volumes:
+  mydb-data:
+
