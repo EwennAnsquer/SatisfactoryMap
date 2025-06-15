@@ -2,9 +2,17 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 import mysql.connector
 import time
+from minio import Minio
 
 app = Flask(__name__)
 cors = CORS(app, origin='*')
+
+minioClient = Minio(
+    "minio",
+    access_key="minio",
+    secret_key="12345678",
+    secure=False
+)
 
 def get_connection():
     max_attempts=10
