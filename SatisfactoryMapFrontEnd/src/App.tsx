@@ -23,6 +23,7 @@ function App() {
             <span>{user}</span><br></br>
           </div>
         ))}
+        <img src="http://localhost:9000/satisfactorymap/image.webp" alt="My Image" />
     </div>
   )
 }
