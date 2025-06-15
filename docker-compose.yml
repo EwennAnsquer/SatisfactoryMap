@@ -22,8 +22,14 @@ services:
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=SatisfactoryMap
     volumes:
       - mydb-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", localhost]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   phpmyadmin:
     image: phpmyadmin:latest
     environment:
