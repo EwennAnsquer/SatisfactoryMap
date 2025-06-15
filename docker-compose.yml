@@ -40,7 +40,20 @@ services:
       - SatisfactoryMapDB
     volumes:
       - ./themes/boodark:/var/www/html/themes/boodark
+  minio:
+    image: 'minio/minio:latest'
+    environment:
+      - MINIO_ROOT_USER=minio
+      - MINIO_ROOT_PASSWORD=12345678
+    ports:
+      - "9000:9000"
+      - "8900:8900"
+    volumes:
+      - 'minio:/data/minio'
+    command: 'minio server /data/minio --console-address ":8900"'
 
 volumes:
   mydb-data:
+  minio:
+    driver: local
 
