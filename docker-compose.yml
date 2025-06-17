@@ -1,6 +1,7 @@
 services:
   SatisfactoryMapFrontEnd:
     image: satisfactory-map-frontend
+    container_name: SatisfactoryMapFrontEnd
     stdin_open: true
     ports:
       - "5173:5173"
@@ -13,6 +14,7 @@ services:
       - /app/node_modules
   SatisfactoryMapBackEnd:
     image: satisfactory-map-backend
+    container_name: SatisfactoryMapBackEnd
     ports:
       - "8080:8080"
     volumes:
@@ -25,6 +27,7 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
   SatisfactoryMapDB:
     image: mysql:latest
+    container_name: SatisfactoryMapDB
     ports:
       - "3306:3306"
     restart: always
@@ -41,6 +44,7 @@ services:
       retries: 5
   phpmyadmin:
     image: phpmyadmin:latest
+    container_name: phpmyadmin
     environment:
       - PMA_HOST=SatisfactoryMapDB
     ports:
@@ -51,6 +55,7 @@ services:
       - ./themes/boodark:/var/www/html/themes/boodark
   minio:
     image: 'minio/minio:latest'
+    container_name: minio
     environment:
       - MINIO_ROOT_USER=${MINIO_ROOT_USER}
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
@@ -60,9 +65,27 @@ services:
     volumes:
       - 'minio:/data/minio'
     command: 'minio server /data/minio --console-address ":8900"'
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    environment:
+      KC_DB: mysql
+      KC_DB_URL: jdbc:mysql://SatisfactoryMapDB:3306/${MYSQL_DATABASE}
+      KC_DB_USERNAME: ${MYSQL_ROOT_USER}
+      KC_DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN_USER}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HTTP_ENABLED: true
+    command:
+      - start-dev
+    ports:
+      - "4000:8080"
+    depends_on:
+      - SatisfactoryMapDB
 
 volumes:
   mydb-data:
   minio:
     driver: local
-
