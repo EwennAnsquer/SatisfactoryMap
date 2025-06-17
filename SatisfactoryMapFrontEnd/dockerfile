@@ -3,6 +3,12 @@ FROM node:alpine
 # Create app directory
 WORKDIR /app
 
+ARG BACK_APP_API_URL
+ENV BACK_APP_API_URL=${BACK_APP_API_URL}
+
+ARG MINIO_BUCKET_API_URL
+ENV MINIO_BUCKET_API_URL=${MINIO_BUCKET_API_URL}
+
 # Install dependencies (will be overwritten by bind mount, but needed for docker build to succeed)
 COPY package*.json .
 RUN npm install

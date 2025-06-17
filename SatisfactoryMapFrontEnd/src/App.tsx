@@ -6,8 +6,13 @@ import './App.css'
 function App() {
   const [array, setArray] = useState([]);
 
+  const apiURL=import.meta.env.VITE_BACK_APP_API_URL
+  const minioURL=import.meta.env.VITE_MINIO_BUCKET_API_URL
+
+  console.log(import.meta.env.VITE_BACK_APP_API_URL)
+
   const fetchAPI = async () =>{
-    const response = await axios.get("http://localhost:8080/api/users")
+    const response = await axios.get(`${apiURL}/users`)
     setArray(response.data.users)
   };
 
@@ -23,7 +28,7 @@ function App() {
             <span>{user}</span><br></br>
           </div>
         ))}
-        <img src="http://localhost:9000/satisfactorymap/image.webp" alt="My Image" />
+        <img src={`${minioURL}/image.webp`} alt="My Image" />
     </div>
   )
 }

@@ -3,14 +3,15 @@ from flask_cors import CORS
 import mysql.connector
 import time
 from minio import Minio
+import os
 
 app = Flask(__name__)
 cors = CORS(app, origin='*')
 
 minioClient = Minio(
-    "minio",
-    access_key="minio",
-    secret_key="12345678",
+    "minio", #hostname or address of the MinIO server
+    access_key=os.environ.get("MINIO_ROOT_USER"),
+    secret_key=os.environ.get("MINIO_ROOT_PASSWORD"),
     secure=False
 )
 
@@ -20,9 +21,9 @@ def get_connection():
         try:
             return mysql.connector.connect(
                 host='SatisfactoryMapDB',
-                user='root',
-                password='1234',
-                database='SatisfactoryMap'
+                user=os.environ.get("MYSQL_ROOT_USER"),
+                password=os.environ.get("MYSQL_ROOT_PASSWORD"),
+                database=os.environ.get("MYSQL_DATABASE")
             )
         except mysql.connector.Error as err:
             print(f"Tentative {i+1} de connexion à la DB échouée : {err}.")
