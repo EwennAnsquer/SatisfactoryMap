@@ -13,6 +13,7 @@ export function useKeycloak() {
         onLoad: 'login-required',
         checkLoginIframe: true,
         pkceMethod: 'S256',
+        redirectUri: import.meta.env.VITE_FRONT_APP_URL,
       }).then(auth => {
         setAuthenticated(auth)
         setInitialized(true)

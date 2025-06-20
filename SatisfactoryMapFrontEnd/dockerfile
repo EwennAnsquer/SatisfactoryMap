@@ -18,6 +18,9 @@ ENV VITE_KEYCLOAK_REALM=${VITE_KEYCLOAK_REALM}
 ARG VITE_KEYCLOAK_CLIENT
 ENV VITE_KEYCLOAK_CLIENT=${VITE_KEYCLOAK_CLIENT}
 
+ARG VITE_FRONT_APP_URL
+ENV VITE_FRONT_APP_URL=${VITE_FRONT_APP_URL}
+
 # Install dependencies (will be overwritten by bind mount, but needed for docker build to succeed)
 COPY package*.json .
 RUN npm install
