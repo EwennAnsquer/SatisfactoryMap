@@ -88,6 +88,12 @@ services:
       - "4000:8080"
     depends_on:
       - SatisfactoryMapDB
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+    - "1025:1025"
+    - "8025:8025"
 
 volumes:
   mydb-data:
