@@ -9,6 +9,9 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - VITE_BACK_APP_API_URL=${VITE_BACK_APP_API_URL}
       - VITE_MINIO_BUCKET_API_URL=${VITE_MINIO_BUCKET_API_URL}
+      - VITE_KEYCLOAK_URL=${VITE_KEYCLOAK_URL}
+      - VITE_KEYCLOAK_REALM=${VITE_KEYCLOAK_REALM}
+      - VITE_KEYCLOAK_CLIENT=${VITE_KEYCLOAK_CLIENT}
     volumes:
       - "./SatisfactoryMapFrontEnd:/app:delegated"
       - /app/node_modules
