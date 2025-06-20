@@ -34,12 +34,11 @@ def get_connection():
 def users():
     con=get_connection()
     cursor=con.cursor()
-    cursor.execute("SELECT * FROM Users;")
+    cursor.execute("SELECT USERNAME FROM `USER_ENTITY`;")
     users=cursor.fetchall()
     cursor.close()
     con.close()
-    users_name=[user[1] for user in users]
-    return jsonify({"users":users_name}),200
+    return jsonify({"users":users}),200
     
 if __name__ == "__main__":
     app.run(debug=True, port=8080, host="0.0.0.0")
