@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useKeycloakContext } from '../contexts/KeycloakContext'
+import { Button } from "@/components/ui/button"
 import api from '../api/axios'
 
 import '../App.css'
@@ -31,27 +32,27 @@ export default function Home() {
           </div>
         ))}
         <img src={`${minioURL}/image.webp`} alt="My Image" />
-        <button onClick={() => { alert(keycloak.authenticated ? 'Authenticated: TRUE' : 'Authenticated: FALSE') }}>
+        <Button onClick={() => { alert(keycloak.authenticated ? 'Authenticated: TRUE' : 'Authenticated: FALSE') }}>
           Is Authenticated
-        </button>
-        <button onClick={() => { keycloak.login() }}>
+        </Button>
+        <Button onClick={() => { keycloak.login() }}>
           login
-        </button>
-        <button onClick={() => { alert(keycloak.token) }}>
+        </Button>
+        <Button onClick={() => { alert(keycloak.token) }}>
           Show Access Token
-        </button>
-        <button onClick={() => { alert(JSON.stringify(keycloak.tokenParsed)) }}>
+        </Button>
+        <Button onClick={() => { alert(JSON.stringify(keycloak.tokenParsed)) }}>
           Show Parsed Access Token
-        </button>
-        <button onClick={() => { alert(keycloak.isTokenExpired(5).toString()) }}>
+        </Button>
+        <Button onClick={() => { alert(keycloak.isTokenExpired(5).toString()) }}>
           Check Token Expire
-        </button>
-        <button onClick={() => { keycloak.updateToken(10).then((refreshed) => { alert('Token Refreshed: ' + refreshed.toString()) }, (e) => { alert('Refresh Error') }) }}>
+        </Button>
+        <Button onClick={() => { keycloak.updateToken(10).then((refreshed) => { alert('Token Refreshed: ' + refreshed.toString()) }, (e) => { alert('Refresh Error') }) }}>
           UPDATE Token (if about to expire)
-        </button> 
-        <button onClick={() => { keycloak.logout({ redirectUri: 'http://localhost:5173/' }) }}>
+        </Button> 
+        <Button onClick={() => { keycloak.logout({ redirectUri: 'http://localhost:5173/' }) }}>
           logout
-        </button>
+        </Button>
     </div>
   )
 }
