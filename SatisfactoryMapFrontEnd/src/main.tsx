@@ -7,7 +7,7 @@ import { KeycloakProvider } from './contexts/KeycloakContext.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <KeycloakProvider>
-      <App />
+        <App />
     </KeycloakProvider>
   </StrictMode>,
 )
